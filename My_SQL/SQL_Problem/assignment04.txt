@@ -1,0 +1,6 @@
+7.select emp_id , emp_name , max(salary) from employee where salary < (select max(salary) from employee);
+8.select emp_id , emp_name , salary from employee where salary  (select max(salary) from employee group by salary order by salary desc);
+9.select emp_id , emp_name , dept_name , salary from employee where dept_name = 'IT' and salary > 3000 and dept dept_name ='Admin' and salary >3400;
+10 .select emp_id , emp_name  , dept_name , salary from employee where emp_name like '%J%' ;
+11. select emp_id , emp_name ,  dept_name , salary from employee where emp_name like '%J%' or emp_name like '%N%' or emp_name like'%M%';
+12. select emp_id , emp_name , dept_name , salary from empoloyee where emp_name like '%B%' and emp_name like '%H%' and emp_name like'%E%';
