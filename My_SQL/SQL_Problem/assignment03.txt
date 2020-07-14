@@ -1,0 +1,61 @@
+1
+SELECT MONTH,max(rain_Inch) Highest_rainfall,max(temp_farenheit) Hottest_temp
+FROM stats;;
+
+ 
+
+2
+select sn.station_id,sn.city,sn.state,ss.month,ss.year,((ss.temp_farenheit-32)*5/9) as Temp,ss.rain_inch *0397 as Rainfall
+from station sn
+join stats ss
+on sn.station_id=ss.stats_id;
+
+3.select stats_id,month,year,temp_farenheit,rain_inch,
+station_id,city,state,lat_n,long_w from stat t left join stats s on s.stats_id=t.station_id group by month having
+month in (select month from (SELECT month,case when month>=1 and month<=3 then 'q1'
+when month>=4 and month<=6 then 'q2' when month>=7 and month<=9 then 'q3'
+when month>=10 and month<=12 then 'q4' else 'q' end as q
+ from stats group by q));
+ 
+
+ 
+
+4
+select sn.state,ss.month,min(ss.temp_farenheit),max(ss.rain_inch) Min_rain,avg(rain_inch*100/ss.year) Avg_Rain
+from stats ss
+join station sn on ss.stats_id=sn.station_id;
+
+ 
+
+5
+select sn.city,sn.state,max(ss.rain_inch) Rain_below_avg
+from station sn
+join stats ss
+on ss.stats_id=sn.station_id
+having ss.rain_inch < avg(ss.rain_inch);
+
+ 
+
+6 select sn.city,dense_rank() over (order by temp_farenheit) as rank
+from station sn
+join stats ss
+on ss.stats_id=sn.station_id
+having rank=2;
+
+7.create view ques3 as select stats_id,month,year,temp_farenheit,rain_inch,
+st_id,city,state,lat_n,long_w from stat t left join stats s on s.stats_id=t.station_id group by month having
+month in (select month from (SELECT month,case when month>=1 and month<=3 then 'q1' 
+when month>=4 and month<=6 then 'q2' when month>=7 and month<=9 then 'q3'
+when month>=10 and month<=12 then 'q4' else 'q' end as q
+ from stats group by q));          
+
+8.select stats_id from stat t left join stats s on s.stats_id=t.station_id group by month having
+month in (select month from (SELECT month,case when month>=1 and month<=3 then 'q1' 
+when month>=4 and month<=6 then 'q2' when month>=7 and month<=9 then 'q3'
+when month>=10 and month<=12 then 'q4' else 'q' end as q
+ from stats group by q)) and ((temp_farenheit-32)*5/9<5 or (temp_farenheit-32)*5/9>20);
+
+ 
+
+
+ 
