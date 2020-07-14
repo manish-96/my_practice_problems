@@ -1,0 +1,97 @@
+create table employee21 (emp_id int , emp_name varchar (30) , emp_sal int , dept_id int  );
+
+insert into employee21 values (10 , 'Vivek' , 2000 , 1 );
+insert into employee21 values (20 , 'Raj' , 3000 , 1 );
+insert into employee21 values (30 , 'Vinoth' , 4000 , 1 );
+insert into employee21 values (40 , 'Abhishek' , 5000 , 2 );
+insert into employee21 values (50 , 'Divya' , 6000 , 2 );
+insert into employee21 values (60 , 'Chitra' , 7000 , 3 );
+
+create table department21 (dept_id int , dept_name varchar (20) );
+
+insert into department21 values (1 , 'IT' );
+insert into department21  values(2 , 'Admin' );
+insert into department21   values (3 , 'HR' );
+
+
+1.   select d.dept_id,d.dept_name,case when e.dept_id is null then 0 else sum(emp_sal) end as sum_emp_sal 
+     from department21 d left join employee21 e on d.dept_id=e.dept_id group by d.dept_id;
+
+ 
+2) select e.dept_id,coalesce(d.dept_name,'others'),sum(emp_sal) as sum_emp_sal 
+  from employee21 e join department21 d on e.dept_id=d.dept_id group by e.dept_id;
+
+==================================================================================
+create table employee31 (emp_id int , emp_name varchar (20) , manager_id int , salary int);
+insert into employee31 values(1 ,   'Vivek'   ,  8    ,     11000  );
+insert into employee31  values(2 ,   'Raj'   ,  1   ,     2000  );
+insert into employee31 values(3 ,   'Vinoth'   ,  1    ,     3000  );
+insert into employee31 values(4 ,   'Abhishek'   ,  2    ,     5000  );
+insert into employee31  values(5 ,   'Divya'   ,  3    ,     6000  );
+insert into employee31 values(6 ,   'Chitra'   ,  3    ,     2350  );
+insert into employee31 values(7 ,   'Devi'   ,  3    ,     2500  );
+insert into employee31 values(8 ,   'Aarthi'   ,  4    ,     2700  );
+
+ 
+3) select emp_id,emp_name,manager_id,salary from employee31 where salary>=2700 and salary<=10000;
+
+4) select ee.emp_id as manager_id,ee.emp_name as manager_name,sum(e.salary) as sum_emp_sal from employee31 e join employee31 ee on e.manager_id=ee.emp_id group by e.manager_id;
+========================================================================================================================
+5) select emp_id,substr(emp_name,4) as derv_emp_name from emp1;
+ 
+6) select emp_id,substr(emp_name,instr(emp_name,'h')) as derv_emp_name from emp1;
+
+========================================================================
+create table employee_ass04 ( emp_id int , emp_name varchar (20) , manager_id int , salary int ) ;
+
+insert into employee_ass04 values(1, 'Vivek' , 8 , 11000);
+insert into employee_ass04 values(2, 'Raj' , 1 , 2000);
+insert into employee_ass04 values(3, 'Vinoth' , 1 , 3000);
+insert into employee_ass04 values(4, 'Abhishek' , 2 , 5000);
+insert into employee_ass04 values(5, 'Divya' , 3 , 6000);
+insert into employee_ass04 values(6, 'Chitra' , 3 , 2350);
+insert into employee_ass04 values(7, 'Devi' , 3 , 2500);
+insert into employee_ass04 values(8, 'Aarthi' , 4 , 2700);
+
+
+7.select emp_id , emp_name , max(salary) from employee where salary < (select max(salary) from employee);
+8.Select distinct salary from employee_ass04 a 
+where 3 >= (select count(distinct salary) 
+from employee_ass04 b 
+where b.salary >= a.salary) 
+order by a.salary desc;
+
+==========================================================================================================
+
+ 
+create  table employee_ass41 (emp_id int , emp_name varchar (20) , dept_name varchar (20) , salary int );
+
+insert into employee_ass41 values (1,'Vivek', 'IT' , 2000 );
+insert into employee_ass41 values (2,'Raj', 'Admin' , 3500 );
+insert into employee_ass41 values (3,'Vinoth', 'HR' , 4800 );
+insert into employee_ass41 values (4,'Abhishek', 'IT' , 5700 );
+insert into employee_ass41 values (5,'Divya', 'ITES' , 3000 );
+insert into employee_ass41 values (6,'Chitra', 'HR' , 5800 );
+insert into employee_ass41 values (7,'Devi', 'Admin' , 3200 );
+
+9 .select emp_id ,emp_name , dept_name , salary from employee_ass41 where salary > 3000 and dept_name = 'IT'or salary > 3400 and dept_name = 'Admin';
+
+=========================================================================================================================
+create  table employee_ass42 (emp_id int , emp_name varchar (20) , dept_name varchar (20) , salary int );
+
+insert into employee_ass42 values (1,'Rajesh', 'IT' , 2000 );
+insert into employee_ass42values (2,'Ajaykumar', 'Admin' , 3500 );
+insert into employee_ass42 values (3,'Abhishek', 'HR' , 4800 );
+insert into employee_ass42 values (4,'Vivekkumar', 'IT' , 5700 );
+insert into employee_ass42 values (5,'Balaji', 'ITES' , 3000 );
+insert into employee_ass42 values (6,'Raveendra', 'HR' , 5800 );
+insert into employee_ass42 values (7,'Poornarao', 'Admin' , 3200 );
+
+10. select emp_id , emp_name , dept_name , salary from employee_ass42 where emp_name like '%j%';
+11.select emp_id , emp_name , dept_name , salary from employee_ass42 where emp_name like '%j%' or emp_name like '%n%'or emp_name like '%m%';
+12.select emp_id , emp_name , dept_name , salary from employee_ass42 where emp_name like '%b%' and emp_name like '%h%'and emp_name like '%e%';
+
+
+=====================================================================================================================================
+
+

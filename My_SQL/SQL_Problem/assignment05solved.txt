@@ -1,0 +1,280 @@
+1.select e.emp_id, e.emp_name,
+       CASE when d.desc_name is null then 'UNKNOWN DESIGNATION'
+            when d.desc_name is not null and d.role_type = 'lead' then 'TEAM_LEAD'
+             else d.desc_name end as desc_name,
+       CASE when p.place_desc is null then 'Others'
+            when p.place_desc is not null and p.place_desc = 'newyork' then 'USA'
+               else p.place_desc end as place_desc,
+            CASE when pr.proj_name is null then 'UNKNOWN PROJECT'
+             else pr.proj_name end as proj_name from employee e left join designation d
+  on e.desc_id = d.desc_id  left join place p on e.place_id = p.place_id  left join
+  project pr on e.proj_id = pr.proj_id order by emp_id;
+
+ 
+
+emp_id   emp_name    desc_name        place_desc    proj_name
+1     Vijaykumar    ASE            Chennai        Pepsi
+2       Raja        SE            Hyderabad    Microsoft
+3   Abhisheksingh    ASE            Mexico        Amazon
+4    Santosh        SSE            Bangalore    Cigna
+5    Kribakaran    SE            Hyderabad    ASG
+6    Divya        TL            Newyork        Pepsi
+7    Suganya        ASE            Hyderabad    Microsoft
+8    Shalini        SE            Bangalore    ASG
+9    Avantika    SSE            Chennai        Amazon
+10    Ajay        AM            Others        UNKNOWN PROJECT
+11    Tamilselvan    UNKNOWN DESIGNATION    Others        UNKNOWN PROJECT
+12    Vinodha        UNKNOWN DESIGNATION    Others        UNKNOWN PROJECT
+13    Karthick    UNKNOWN DESIGNATION    Newyork        ASG
+14    Sanjay        UNKNOWN DESIGNATION    Others        Amazon
+15    Meera        UNKNOWN DESIGNATION    Others        UNKNOWN PROJECT
+=============================================================================================
+2.select e.emp_id,e.emp_name, 
+   case when d.role_type='DEVELOPER' and p.place_type='Offshore' then 'TEAMMEMBER'
+        when d.role_type='DEVELOPER' and p.place_type='Nearshore' then 'TEAMLEAD'
+    when d.role_type='DEVELOPER' and p.place_type='Onshore' then 'BA'
+    when d.role_type='LEAD' and p.place_type='Onshore' then 'SCRUMMASTER'
+    when d.role_type is not null or p.place_type is not null then 'CONTRACTER'
+    else 'SHADOW' end as Proj_role
+    from employee e left join designation d on d.desc_id=e.desc_id left join place p on
+    p.place_id=e.place_id;
+
+ 
+
+ 
+
+ 
+
+emp_id  emp_name        proj_role
+1    Vijaykumar    TEAMMEMBER
+2    Raja        TEAMMEMBER
+3    Abhisheksingh    TEAMLEAD
+4    Santosh        TEAMMEMBER
+5    Kribakaran    TEAMMEMBER
+6    Divya        SCRUMMASTER
+7    Suganya        TEAMMEMBER
+8    Shalini        TEAMMEMBER
+9    Avantika    TEAMMEMBER
+10    Ajay        CONTRACTER
+11    Tamilselvan    SHADOW
+12    Vinodha        SHADOW
+13    Karthick    CONTRACTER
+14    Sanjay        SHADOW
+15    Meera        SHADOW
+
+ 
+
+===========================================================================================================
+5)select s.salesman_name,c.cust_name,c.city customer_city,s.city saleman_city 
+  from customer c join salesman s on
+  s.salesman_id=c.salesman_id where c.city<>s.city;
+
+ 
+
+ 
+
+ 
+
+salesman_name    cust_name    customer_city   salesman_city
+Raju           Ricky    Chennai        Hyderabad
+Srinath            Amaran    Chennai        Mumbai
+===========================================================================================================
+6)select Salesman_Name, City, Monthly_target,a.amt Amount_purchase_by_Customer 
+  from salesman s join (select salesman_id,sum(purchased_amount) amt 
+                        from customer group by salesman_id) a on 
+ s.salesman_id=a.salesman_id where a.amt>=monthly_target;
+
+ 
+
+ 
+
+ 
+
+Salesman_name     city    Monthly_target   Amount_purchase_by_customer
+John        Chennai        10000        10000
+Raju        Hyderabad    21000        23000
+Srinath        Mumbai        9000        9000
+Vijay        Chennai        4000        5000
+============================================================================================================
+
+ 
+
+8)select s.salesman_name,c.City,s.monthly_target,a.amt Amount_purchase_by_Customer 
+  from customer c left join (select customer_id,sum(purchased_amount) amt 
+                             from customer group by salesman_id) 
+a on c.customer_id=a.customer_id  join 
+salesman s on s.salesman_id=c.salesman_id where a.amt<=(select avg(monthly_target) 
+                                                        from salesman group by salesman_id);
+
+ 
+
+ 
+
+ 
+
+Salesman_name     city    Monthly_target   Amount_purchase_by_customer
+John        Chennai        10000        10000
+Abraham        Bangalore    21000        8000
+Vijay        Chennai        4000        5000
+Srinath        Mumbai        9000        9000
+==============================================================================================================
+
+ 
+
+=================================================================================================================
+create table customer (customer_id int , cust_name varchar(100)) ;
+insert into customer values (10 , 'JamesMartin');
+insert into customer values (20 , 'RickyAdams');
+insert into customer values (30 , 'Ramanujam');
+insert into customer values (40 , 'JyothiMahalingam');
+insert into customer values (50 , 'AmaranJothi');
+insert into customer values (60 , 'AkilanBala');
+insert into customer values (70 , 'ArunKumar');
+insert into customer values (80 , 'Dineshkumar');
+
+13. SELECT SUBSTRING( column_name, 1, 3 ) FROM table_name;
+14.
+15. select cust_name from customer where cust_name like 'A%' or cust_name like 'U%' or cust_name like 'R%' ;
+
+
+create table city (city_id int , city_name varchar (20));
+insert into city values (1,'Chennai');
+insert into city values (2,'Bangalore');
+insert into city values (3,'Mumbai');
+
+
+create table class ( class_id int , class_name  varchar (20) , classroom_num int , start_date date , end_date date );
+
+
+=================================================================================================
+create table customer11 (customer_id int  , cust_name varchar(20) , city varchar (20) , priority_num int , salesman_id int , purchased_amount int );
+insert into customer11 values (10,'James' , 'Chennai' , 1 , 1, 10000 );
+insert into customer11 values (20,'Ricky' , 'Chennai' , 1 , 3, 8000 );
+insert into customer11 values (30,'Ramu' , 'Bangalore' , 1 , 2, 8000 );
+insert into customer11 values (40,'Jyothi' , 'Hydrabad' , 2 , 3, 9000 );
+insert into customer11 values (50,'Amaran' , 'Chennai' , 1 , 4, 3000 );
+insert into customer11 values (60,'Akhilan' , 'Hydrabad' , 2 , 3, 6000 );
+insert into customer11 values (70,'Arun' , 'Chennai' , 2 , 5, 5000 );
+insert into customer11 values (80,'Dinesh' , 'Mumbai' , 2 , 4, 6000 );
+
+create table salesman ( salesman_id int , salesman_name varchar(20) , city varchar (20) , sales_manager_id int , monthly_target int );
+insert into salesman values ( 1   ,    'John'   ,   'Chennai'   , 2    ,   10000 ) ; 
+insert into salesman values ( 2   ,    'Abraham'   ,   'Banglore'   , 4    ,   10000 ) ; 
+insert into salesman values ( 3   ,    'Raju'   ,   'Hyderabad'   , 4    ,   21000 ) ; 
+insert into salesman values ( 4   ,    'Srinath'   ,   'Mumbai'   , 5   ,   9000 ) ; 
+insert into salesman values ( 5   ,    'Vijay'   ,   'Chennai'   , 6   ,   4000 ) ; 
+insert into salesman values ( 6   ,    'Balaji'   ,   'Hyderabad'   , 6    ,   15000 ) ; 
+
+5. select s.salesman_name , c.cust_name , c.customer_city , s.salesman_city from customer c on salesman s where c.salesman_id = s.salesman_id and  c.customer_city< > s.salesman_city ;  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table customer11 (customer_id int , cust_name varchar (20) , city varchar (20) , priority_num int , salesman_id int , p ) 
