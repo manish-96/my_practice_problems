@@ -1,0 +1,973 @@
+ 
+---------TABLE CREATION-------------------
+ 
+10 
+ 
+11 mysql> CREATE TABLE movie (mID INT PRIMARY KEY,title VARCHAR(30),year INT,director VARCHAR(20));
+ 
+12 Query OK, 0 rows affected (0.28 sec)
+ 
+13 
+ 
+14 mysql> CREATE TABLE reviewer (rID INT PRIMARY KEY,name VARCHAR(30));
+ 
+15 Query OK, 0 rows affected (0.09 sec)
+ 
+16 
+ 
+17 mysql> CREATE TABLE rating(rID INT, mID INT, stars INT,ratingDate date, FOREIGN KEY(rID) REFERENCES reviewer(rID),FOREIGN KEY(mID) REFERENCES movie(mID));
+ 
+18 Query OK, 0 rows affected (0.20 sec)
+ 
+19 
+ 
+20 
+ 
+21 ---------VALUE INSERTION------------------
+ 
+22 
+ 
+23 mysql> INSERT INTO movie(mID,title,year,director) VALUES (101,"Gone with the wild",1939,"Victor Fleming");
+ 
+24 Query OK, 1 row affected (0.13 sec)
+ 
+25 
+ 
+26 mysql> INSERT INTO movie(mID,title,year,director) VALUES (102,"Star Wars",1977,"George Lucas");
+ 
+27 Query OK, 1 row affected (0.04 sec)
+ 
+28 
+ 
+29 mysql> INSERT INTO movie(mID,title,year,director) VALUES (103,"The Sound Of Music",1965,"Robert Wise");
+ 
+30 Query OK, 1 row affected (0.03 sec)
+ 
+31 
+ 
+32 mysql> INSERT INTO movie(mID,title,year,director) VALUES (104,"E.T.",1982,"Steven Spielberg");
+ 
+33 Query OK, 1 row affected (0.03 sec)
+ 
+34 
+ 
+35 mysql> INSERT INTO movie(mID,title,year,director) VALUES (105,"Titanic",1997,"James Cameron");
+ 
+36 Query OK, 1 row affected (0.05 sec)
+ 
+37 
+ 
+38 mysql> INSERT INTO movie(mID,title,year) VALUES (106,"Snow White",1937);
+ 
+39 Query OK, 1 row affected (0.05 sec)
+ 
+40 
+ 
+41 mysql> INSERT INTO movie(mID,title,year,director) VALUES (107,"Avatar",2009,"James Cameron");
+ 
+42 Query OK, 1 row affected (0.06 sec)
+ 
+43 
+ 
+44 mysql> INSERT INTO movie(mID,title,year,director) VALUES (108,"Raiders of the Lost Ark",1981,"Steven Spielberg");
+ 
+45 Query OK, 1 row affected (0.03 sec)
+ 
+46 
+ 
+47 
+ 
+48 
+ 
+49 mysql> INSERT INTO reviewer(rID,name) VALUES (201,"Sarah Martinez");
+ 
+50 Query OK, 1 row affected (0.07 sec)
+ 
+51 
+ 
+52 mysql> INSERT INTO reviewer(rID,name) VALUES (202,"Daniel Lewis");
+ 
+53 Query OK, 1 row affected (0.03 sec)
+ 
+54 
+ 
+55 mysql> INSERT INTO reviewer(rID,name) VALUES (203,"Britanny Harris");
+ 
+56 Query OK, 1 row affected (0.03 sec)
+ 
+57 
+ 
+58 mysql> INSERT INTO reviewer(rID,name) VALUES (204,"Mike Anderson");
+ 
+59 Query OK, 1 row affected (0.05 sec)
+ 
+60 
+ 
+61 mysql> INSERT INTO reviewer(rID,name) VALUES (205,"Chris Jackson");
+ 
+62 Query OK, 1 row affected (0.03 sec)
+ 
+63 
+ 
+64 mysql> INSERT INTO reviewer(rID,name) VALUES (206,"Elizabeth Thomas");
+ 
+65 Query OK, 1 row affected (0.03 sec)
+ 
+66 
+ 
+67 mysql> INSERT INTO reviewer(rID,name) VALUES (207,"James Cameron");
+ 
+68 Query OK, 1 row affected (0.03 sec)
+ 
+69 
+ 
+70 mysql> INSERT INTO reviewer(rID,name) VALUES (208,"Ashley White");
+ 
+71 Query OK, 1 row affected (0.03 sec)
+ 
+72 
+ 
+73 
+ 
+74 
+ 
+75 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (201,101,2,'20110122');
+ 
+76 Query OK, 1 row affected (0.09 sec)
+ 
+77 
+ 
+78 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (201,101,4,'20110127');
+ 
+79 Query OK, 1 row affected (0.04 sec)
+ 
+80 
+ 
+81 mysql> INSERT INTO Rating(rId,mId,stars) VALUES (202,106,4);
+ 
+82 Query OK, 1 row affected (0.04 sec)
+ 
+83 
+ 
+84 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (203,103,2,'20110120');
+ 
+85 Query OK, 1 row affected (0.05 sec)
+ 
+86 
+ 
+87 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (203,108,4,'20110112');
+ 
+88 Query OK, 1 row affected (0.09 sec)
+ 
+89 
+ 
+90 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (203,108,2,'20110130');
+ 
+91 Query OK, 1 row affected (0.04 sec)
+ 
+92 
+ 
+93 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (204,101,3,'20110109');
+ 
+94 Query OK, 1 row affected (0.07 sec)
+ 
+95 
+ 
+96 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (205,103,3,'20110127');
+ 
+97 Query OK, 1 row affected (0.06 sec)
+ 
+98 
+ 
+99 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (205,104,2,'20110122');
+ 
+100 Query OK, 1 row affected (0.03 sec)
+ 
+101 
+ 
+102 mysql> INSERT INTO Rating(rId,mId,stars) VALUES (205,108,4);
+ 
+103 Query OK, 1 row affected (0.03 sec)
+ 
+104 
+ 
+105 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (206,107,3,'20110115');
+ 
+106 Query OK, 1 row affected (0.04 sec)
+ 
+107 
+ 
+108 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (206,106,5,'20110119');
+ 
+109 Query OK, 1 row affected (0.04 sec)
+ 
+110 
+ 
+111 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (207,107,5,'20110120');
+ 
+112 Query OK, 1 row affected (0.06 sec)
+ 
+113 
+ 
+114 mysql> INSERT INTO Rating(rId,mId,stars,ratingDate) VALUES (208,104,3,'20110102');
+ 
+115 Query OK, 1 row affected (0.06 sec)
+ 
+116 
+ 
+117 
+ 
+118 
+ 
+119 mysql> SELECT * FROM movie;
+ 
+120 +-----+-------------------------+------+------------------+
+ 
+121 | mID | title                   | year | director         |
+ 
+122 +-----+-------------------------+------+------------------+
+ 
+123 | 101 | Gone with the wild      | 1939 | Victor Fleming   |
+ 
+124 | 102 | Star Wars               | 1977 | George Lucas     |
+ 
+125 | 103 | The Sound Of Music      | 1965 | Robert Wise      |
+ 
+126 | 104 | E.T.                    | 1982 | Steven Spielberg |
+ 
+127 | 105 | Titanic                 | 1997 | James Cameron    |
+ 
+128 | 106 | Snow White              | 1937 | NULL             |
+ 
+129 | 107 | Avatar                  | 2009 | James Cameron    |
+ 
+130 | 108 | Raiders of the Lost Ark | 1981 | Steven Spielberg |
+ 
+131 +-----+-------------------------+------+------------------+
+ 
+132 8 rows in set (0.00 sec)
+ 
+133 
+ 
+134 
+ 
+135 mysql> SELECT * FROM reviewer;
+ 
+136 +-----+------------------+
+ 
+137 | rID | name             |
+ 
+138 +-----+------------------+
+ 
+139 | 201 | Sarah Martinez   |
+ 
+140 | 202 | Daniel Lewis     |
+ 
+141 | 203 | Britanny Harris  |
+ 
+142 | 204 | Mike Anderson    |
+ 
+143 | 205 | Chris Jackson    |
+ 
+144 | 206 | Elizabeth Thomas |
+ 
+145 | 207 | James Cameron    |
+ 
+146 | 208 | Ashley White     |
+ 
+147 +-----+------------------+
+ 
+148 8 rows in set (0.00 sec)
+ 
+149 
+ 
+150 
+ 
+151 mysql> SELECT * FROM rating;
+ 
+152 +------+------+-------+------------+
+ 
+153 | rID  | mID  | stars | ratingDate |
+ 
+154 +------+------+-------+------------+
+ 
+155 |  201 |  101 |     2 | 2011-01-22 |
+ 
+156 |  201 |  101 |     4 | 2011-01-27 |
+ 
+157 |  202 |  106 |     4 | NULL       |
+ 
+158 |  203 |  103 |     2 | 2011-01-20 |
+ 
+159 |  203 |  108 |     4 | 2011-01-12 |
+ 
+160 |  203 |  108 |     2 | 2011-01-30 |
+ 
+161 |  204 |  101 |     3 | 2011-01-09 |
+ 
+162 |  205 |  103 |     3 | 2011-01-27 |
+ 
+163 |  205 |  104 |     2 | 2011-01-22 |
+ 
+164 |  205 |  108 |     4 | NULL       |
+ 
+165 |  206 |  107 |     3 | 2011-01-15 |
+ 
+166 |  206 |  106 |     5 | 2011-01-19 |
+ 
+167 |  207 |  107 |     5 | 2011-01-20 |
+ 
+168 |  208 |  104 |     3 | 2011-01-02 |
+ 
+169 +------+------+-------+------------+
+ 
+170 14 rows in set (0.00 sec)
+ 
+171 
+ 
+172 
+ 
+173 
+ 
+174 
+ 
+175 -------------------------------QUERIES--------------------------------------------
+ 
+176 
+ 
+177 1. Find the titles of all movies directed by Steven Spielberg. (1 point possible)
+ 
+178 
+ 
+179 mysql> SELECT title FROM movie WHERE director="Steven Spielberg";
+ 
+180 +-------------------------+
+ 
+181 | title                   |
+ 
+182 +-------------------------+
+ 
+183 | E.T.                    |
+ 
+184 | Raiders of the Lost Ark |
+ 
+185 +-------------------------+
+ 
+186 2 rows in set (0.01 sec)
+ 
+187 
+ 
+188 ****************************************************************************************************************************************
+ 
+189 
+ 
+190 2. Find all years that have a movie that received a rating of 4 or 5, and sort them in increasing order. (1 point possible)
+ 
+191 
+ 
+192 mysql> SELECT year FROM movie WHERE mID IN (SELECT mID FROM rating WHERE stars IN (4,5)) ORDER BY year;
+ 
+193 +------+
+ 
+194 | year |
+ 
+195 +------+
+ 
+196 | 1937 |
+ 
+197 | 1939 |
+ 
+198 | 1981 |
+ 
+199 | 2009 |
+ 
+200 +------+
+ 
+201 4 rows in set (0.07 sec)
+ 
+202 
+ 
+203 ****************************************************************************************************************************************
+ 
+204 
+ 
+205 3. Find the titles of all movies that have no ratings. (1 point possible)
+ 
+206 
+ 
+207 mysql> SELECT title FROM movie WHERE mID NOT IN (SELECT mID from rating);
+ 
+208 +-----------+
+ 
+209 | title     |
+ 
+210 +-----------+
+ 
+211 | Star Wars |
+ 
+212 | Titanic   |
+ 
+213 +-----------+
+ 
+214 2 rows in set (0.04 sec)
+ 
+215 
+ 
+216 ****************************************************************************************************************************************
+ 
+217 
+ 
+218 4. Some reviewers didn't provide a date with their rating. Find the names of all reviewers who have ratings with a NULL value for the date. (1 point possible)
+ 
+219 
+ 
+220 mysql> SELECT name FROM reviewer WHERE rID IN (SELECT rID FROM rating WHERE ratingDate IS NULL);
+ 
+221 +---------------+
+ 
+222 | name          |
+ 
+223 +---------------+
+ 
+224 | Daniel Lewis  |
+ 
+225 | Chris Jackson |
+ 
+226 +---------------+
+ 
+227 2 rows in set (0.00 sec)
+ 
+228 
+ 
+229 
+ 
+230 ****************************************************************************************************************************************
+ 
+231 
+ 
+232 5. Write a query to return the ratings data in a more readable format: reviewer name, movie title, stars, and ratingDate. Also, sort the data, first by reviewer name, then by movie title, and lastly by number of stars. (1 point possible)
+ 
+233 
+ 
+234 mysql> SELECT r1.name AS "Reviewer name",m.title AS "Movie title",r2.stars AS "Stars",r2.ratingDate AS "Rating date" FROM movie m,reviewer r1,rating r2 WHERE m.mID=r2.mID AND r1.rID=r2.rID ORDER BY r1.name,m.title,Stars;
+ 
+235 +------------------+-------------------------+-------+-------------+
+ 
+236 | Reviewer name    | Movie title             | Stars | Rating date |
+ 
+237 +------------------+-------------------------+-------+-------------+
+ 
+238 | Ashley White     | E.T.                    |     3 | 2011-01-02  |
+ 
+239 | Britanny Harris  | Raiders of the Lost Ark |     2 | 2011-01-30  |
+ 
+240 | Britanny Harris  | Raiders of the Lost Ark |     4 | 2011-01-12  |
+ 
+241 | Britanny Harris  | The Sound Of Music      |     2 | 2011-01-20  |
+ 
+242 | Chris Jackson    | E.T.                    |     2 | 2011-01-22  |
+ 
+243 | Chris Jackson    | Raiders of the Lost Ark |     4 | NULL        |
+ 
+244 | Chris Jackson    | The Sound Of Music      |     3 | 2011-01-27  |
+ 
+245 | Daniel Lewis     | Snow White              |     4 | NULL        |
+ 
+246 | Elizabeth Thomas | Avatar                  |     3 | 2011-01-15  |
+ 
+247 | Elizabeth Thomas | Snow White              |     5 | 2011-01-19  |
+ 
+248 | James Cameron    | Avatar                  |     5 | 2011-01-20  |
+ 
+249 | Mike Anderson    | Gone with the wild      |     3 | 2011-01-09  |
+ 
+250 | Sarah Martinez   | Gone with the wild      |     2 | 2011-01-22  |
+ 
+251 | Sarah Martinez   | Gone with the wild      |     4 | 2011-01-27  |
+ 
+252 +------------------+-------------------------+-------+-------------+
+ 
+253 14 rows in set (0.00 sec)
+ 
+254 
+ 
+255 ***********************************************************************************************************************************************************************
+ 
+256 
+ 
+257 6. For all cases where the same reviewer rated the same movie twice and gave it a higher rating the second time, return the reviewer's name and the title of the movie. (1 point possible)
+ 
+258 
+ 
+259 mysql> SELECT title,name FROM rating r1 JOIN rating r2 ON r1.rID=r2.rID AND r1.mID=r2.mID JOIN movie m ON m.mID=r1.mID JOIN reviewer r ON r.rID=r1.rID WHERE r2.stars > r1.stars AND r2.ratingDate > r1.ratingDate;
+ 
+260 +--------------------+----------------+
+ 
+261 | title              | name           |
+ 
+262 +--------------------+----------------+
+ 
+263 | Gone with the wild | Sarah Martinez |
+ 
+264 +--------------------+----------------+
+ 
+265 1 row in set (0.00 sec)
+ 
+266 
+ 
+267 ****************************************************************************************************************************************
+ 
+268 
+ 
+269 7. For each movie that has at least one rating, find the highest number of stars that movie received. Return the movie title and number of stars. Sort by movie title. (1 point possible)
+ 
+270 
+ 
+271 mysql> SELECT title,MAX(stars) AS "MaxStars" FROM movie m JOIN rating r ON m.mID=r.mID GROUP BY title ORDER BY title;
+ 
+272 +-------------------------+----------+
+ 
+273 | title                   | MaxStars |
+ 
+274 +-------------------------+----------+
+ 
+275 | Avatar                  |        5 |
+ 
+276 | E.T.                    |        3 |
+ 
+277 | Gone with the wild      |        4 |
+ 
+278 | Raiders of the Lost Ark |        4 |
+ 
+279 | Snow White              |        5 |
+ 
+280 | The Sound Of Music      |        3 |
+ 
+281 +-------------------------+----------+
+ 
+282 6 rows in set (0.00 sec)
+ 
+283 
+ 
+284 ****************************************************************************************************************************************
+ 
+285 8. For each movie, return the title and the 'rating spread', that is, the difference between highest and lowest ratings given to that movie. Sort by rating spread from highest to lowest, then by movie title. (1 point possible)
+ 
+286 
+ 
+287 mysql> SELECT m.title,(MAX(stars)-MIN(stars)) AS "RatingSpread" FROM movie m JOIN rating r ON m.mID=r.mID GROUP BY m.title ORDER BY RatingSpread DESC,m.title;
+ 
+288 +-------------------------+--------------+
+ 
+289 | title                   | RatingSpread |
+ 
+290 +-------------------------+--------------+
+ 
+291 | Avatar                  |            2 |
+ 
+292 | Gone with the wild      |            2 |
+ 
+293 | Raiders of the Lost Ark |            2 |
+ 
+294 | E.T.                    |            1 |
+ 
+295 | Snow White              |            1 |
+ 
+296 | The Sound Of Music      |            1 |
+ 
+297 +-------------------------+--------------+
+ 
+298 6 rows in set (0.00 sec)
+ 
+299 
+ 
+300 ****************************************************************************************************************************************
+ 
+301 
+ 
+302 9. Find the difference between the average rating of movies released before 1980 and the average rating of movies released after 1980. (Make sure to calculate the average rating for each movie, then the average of those averages for movies before 1980 and movies after. Don't just calculate the overall average rating before and after 1980.) (1 point possible)
+ 
+303 
+ 
+304 mysql> SELECT AVG(m1.Before1980) - AVG(m2.After1980) AS "HighAvg" FROM (SELECT AVG(stars) AS "Before1980" FROM rating r JOIN movie m ON r.mID=m.mID WHERE year < 1980 GROUP BY m.mID) as m1, (SELECT AVG(stars) AS "After1980" FROM rating r JOIN movie m ON r.mID=m.mID WHERE year > 1980 GROUP BY m.mID) AS m2;
+ 
+305 +------------+
+ 
+306 | HighAvg    |
+ 
+307 +------------+
+ 
+308 | 0.05556667 |
+ 
+309 +------------+
+ 
+310 1 row in set (0.00 sec)
+ 
+311 
+ 
+312 
+ 
+313 ****************************************************************************************************************************************
+ 
+314 10. Find the names of all reviewers who rated Gone with the Wind. (1 point possible)
+ 
+315 
+ 
+316 mysql> SELECT name FROM reviewer WHERE rID IN (SELECT rID FROM rating WHERE mID IN (SELECT mID FROM movie WHERE title="Gone with the wild"));
+ 
+317 +----------------+
+ 
+318 | name           |
+ 
+319 +----------------+
+ 
+320 | Sarah Martinez |
+ 
+321 | Mike Anderson  |
+ 
+322 +----------------+
+ 
+323 2 rows in set (0.00 sec)
+ 
+324 
+ 
+325 ****************************************************************************************************************************************
+ 
+326 
+ 
+327 11. For any rating where the reviewer is the same as the director of the movie, return the reviewer name, movie title, and number of stars. (1 point possible)
+ 
+328 
+ 
+329 mysql> SELECT r.name AS "Reviewer Name",m.title as "Movie Title",r1.stars FROM movie m, reviewer r,rating r1 WHERE m.mID=r1.mID AND r1.rID=r.rID AND r.name=m.director;
+ 
+330 +---------------+-------------+-------+
+ 
+331 | Reviewer Name | Movie Title | stars |
+ 
+332 +---------------+-------------+-------+
+ 
+333 | James Cameron | Avatar      |     5 |
+ 
+334 +---------------+-------------+-------+
+ 
+335 1 row in set (0.00 sec)
+ 
+336 
+ 
+337 ****************************************************************************************************************************************
+ 
+338 
+ 
+339 
+ 
+340 12. Return all reviewer names and movie names together in a single list, alphabetized. (Sorting by the first name of the reviewer and first word in the title is fine; no need for special processing on last names or removing "The".) (1 point possible)
+ 
+341 
+ 
+342 mysql> SELECT CONCAT(name,"-",title) AS NAME FROM Movie JOIN Rating ON Movie.mID=Rating.mID JOIN Reviewer ON Rating.rID=Reviewer.rID ORDER BY NAME;
+ 
+343 +-----------------------------------------+
+ 
+344 | NAME                                    |
+ 
+345 +-----------------------------------------+
+ 
+346 | Ashley White-E.T.                       |
+ 
+347 | Brittany Harris-Raiders of the Lost Ark |
+ 
+348 | Brittany Harris-Raiders of the Lost Ark |
+ 
+349 | Brittany Harris-The sound of music      |
+ 
+350 | Chris Jackson-E.T.                      |
+ 
+351 | Chris Jackson-Raiders of the Lost Ark   |
+ 
+352 | Chris Jackson-The sound of music        |
+ 
+353 | Daniel Lewis-Snow White                 |
+ 
+354 | Elizabeth Thomas-Avatar                 |
+ 
+355 | Elizabeth Thomas-Snow White             |
+ 
+356 | James Cameron-Avatar                    |
+ 
+357 | Mike Anderson-Gone with the Wind        |
+ 
+358 | Sarah Martinez-Gone with the Wind       |
+ 
+359 | Sarah Martinez-Gone with the Wind       |
+ 
+360 +-----------------------------------------+
+ 
+361 14 rows in set (0.00 sec)
+ 
+362 
+ 
+363 ****************************************************************************************************************************************
+ 
+364 
+ 
+365 
+ 
+366 13. Find the titles of all movies not reviewed by Chris Jackson. (1 point possible)
+ 
+367 
+ 
+368 mysql> SELECT title FROM movie WHERE mID NOT IN (SELECT r.mID FROM rating r JOIN reviewer r1 ON r1.rID=r.rID WHERE r1.name="Chris Jackson");
+ 
+369 +--------------------+
+ 
+370 | title              |
+ 
+371 +--------------------+
+ 
+372 | Gone with the wild |
+ 
+373 | Star Wars          |
+ 
+374 | Titanic            |
+ 
+375 | Snow White         |
+ 
+376 | Avatar             |
+ 
+377 +--------------------+
+ 
+378 5 rows in set (0.00 sec)
+ 
+379 
+ 
+380 ****************************************************************************************************************************************
+ 
+381 
+ 
+382 14. For all pairs of reviewers such that both reviewers gave a rating to the same movie, return the names of both reviewers. Eliminate duplicates, don't pair reviewers with themselves, and include each pair only once. For each pair, return the names in the pair in alphabetical order. (1 point possible)
+ 
+383 
+ 
+384 mysql> SELECT DISTINCT re1.name,re2.name FROM rating r1 JOIN rating r2 ON r1.mID=r2.mID JOIN reviewer re1 ON r1.rID=re1.rID JOIN reviewer re2 ON r2.rID=re2.rID WHERE r1.rID<r2.rID;
+ 
+385 +------------------+------------------+
+ 
+386 | name             | name             |
+ 
+387 +------------------+------------------+
+ 
+388 | Sarah Martinez   | Mike Anderson    |
+ 
+389 | Britanny Harris  | Chris Jackson    |
+ 
+390 | Daniel Lewis     | Elizabeth Thomas |
+ 
+391 | Elizabeth Thomas | James Cameron    |
+ 
+392 | Chris Jackson    | Ashley White     |
+ 
+393 +------------------+------------------+
+ 
+394 5 rows in set (0.00 sec)
+ 
+395 
+ 
+396 ****************************************************************************************************************************************
+ 
+397 
+ 
+398 15. For each rating that is the lowest (fewest stars) currently in the database, return the reviewer name, movie title, and number of stars. (1 point possible)
+ 
+399 
+ 
+400 mysql> SELECT name,title,stars FROM movie m JOIN rating r ON m.mID=r.mID JOIN reviewer r1 ON r.rID=r1.rID WHERE stars IN (SELECT MIN(stars) FROM rating);
+ 
+401 +-----------------+-------------------------+-------+
+ 
+402 | name            | title                   | stars |
+ 
+403 +-----------------+-------------------------+-------+
+ 
+404 | Sarah Martinez  | Gone with the wild      |     2 |
+ 
+405 | Britanny Harris | The Sound Of Music      |     2 |
+ 
+406 | Britanny Harris | Raiders of the Lost Ark |     2 |
+ 
+407 | Chris Jackson   | E.T.                    |     2 |
+ 
+408 +-----------------+-------------------------+-------+
+ 
+409 4 rows in set (0.00 sec)
+ 
+410 
+ 
+411 ****************************************************************************************************************************************
+ 
+412 
+ 
+413 16. List movie titles and average ratings, from highest-rated to lowest-rated. If two or more movies have the same average rating, list them in alphabetical order. (1 point possible)
+ 
+414 
+ 
+415 mysql> SELECT title,AVG(stars) AS "AvgStars" FROM movie m JOIN rating r ON m.mID=r.mID GROUP BY title ORDER BY AvgStars DESC,title;
+ 
+416 +-------------------------+----------+
+ 
+417 | title                   | AvgStars |
+ 
+418 +-------------------------+----------+
+ 
+419 | Snow White              |   4.5000 |
+ 
+420 | Avatar                  |   4.0000 |
+ 
+421 | Raiders of the Lost Ark |   3.3333 |
+ 
+422 | Gone with the wild      |   3.0000 |
+ 
+423 | E.T.                    |   2.5000 |
+ 
+424 | The Sound Of Music      |   2.5000 |
+ 
+425 +-------------------------+----------+
+ 
+426 6 rows in set (0.00 sec)
+ 
+427 
+ 
+428 ****************************************************************************************************************************************
+ 
+429 
+ 
+430 17. Find the names of all reviewers who have contributed three or more ratings. (As an extra challenge, try writing the query without HAVING or without COUNT.) (1 point possible)
+ 
+431 
+ 
+432 mysql> SELECT name FROM reviewer r JOIN rating r1 ON r.rID=r1.rID GROUP BY r1.rID HAVING COUNT(r1.stars)>=3;
+ 
+433 +-----------------+
+ 
+434 | name            |
+ 
+435 +-----------------+
+ 
+436 | Britanny Harris |
+ 
+437 | Chris Jackson   |
+ 
+438 +-----------------+
+ 
+439 2 rows in set (0.00 sec)
+ 
+440 
+ 
+441 ****************************************************************************************************************************************
+ 
+442 
+ 
+443 18. Some directors directed more than one movie. For all such directors, return the titles of all movies directed by them, along with the director name. Sort by director name, then movie title. (As an extra challenge, try writing the query both with and without COUNT.) (1 point possible)
+ 
+444 
+ 
+445 mysql> select director,GROUP_CONCAT(title) AS "Movies" from movie group by director having count(director)>1 order by director,title;
+ 
+446 +------------------+------------------------------+
+ 
+447 | director         | Movies                       |
+ 
+448 +------------------+------------------------------+
+ 
+449 | James Cameron    | Titanic,Avatar               |
+ 
+450 | Steven Spielberg | E.T.,Raiders of the Lost Ark |
+ 
+451 +------------------+------------------------------+
+ 
+452 2 rows in set (0.04 sec)
+ 
+453 
+ 
+454 ****************************************************************************************************************************************
+ 
+455 
+ 
+456 19. Find the movie(s) with the highest average rating. Return the movie title(s) and average rating. (Hint: This query is more difficult to write in SQLite than other systems; you might think of it as finding the highest average rating and then choosing the movie(s) with that average rating.) (1 point possible)
+ 
+457 
+ 
+458 mysql> SELECT m.title,AVG(stars) FROM movie m JOIN rating r ON m.mID=r.mID GROUP BY m.title HAVING AVG(stars) = (SELECT MAX(average) FROM (SELECT AVG(stars) AS "average" FROM rating GROUP BY mID)emp);
+ 
+459 +------------+------------+
+ 
+460 | title      | AVG(stars) |
+ 
+461 +------------+------------+
+ 
+462 | Snow White |     4.5000 |
+ 
+463 +------------+------------+
+ 
+464 1 row in set (0.00 sec)
+ 
+465 
+ 
+466 
+ 
+467 ****************************************************************************************************************************************
+ 
+468 
+ 
+469 20. Find the movie(s) with the lowest average rating. Return the movie title(s) and average rating. (Hint: This query may be more difficult to write in SQLite than other systems; you might think of it as finding the lowest average rating and then choosing the movie(s) with that average rating.) (1 point possible)
+ 
+470 
+ 
+471 mysql> SELECT m.title,AVG(stars) FROM movie m JOIN rating r ON m.mID=r.mID GROUP BY m.title HAVING AVG(stars)=(SELECT MIN(average) FROM (SELECT AVG(stars) AS "average" FROM rating GROUP BY mID)emp);
+ 
+472 +--------------------+------------+
+ 
+473 | title              | AVG(stars) |
+ 
+474 +--------------------+------------+
+ 
+475 | E.T.               |     2.5000 |
+ 
+476 | The Sound Of Music |     2.5000 |
+ 
+477 +--------------------+------------+
+ 
+478 2 rows in set (0.00 sec)
+ 
+479 
+ 
+480 **************************************************************************************************************************************
+ 
+481 
+ 
+482 21. For each director, return the director's name together with the title(s) of the movie(s) they directed that received the highest rating among all of their movies, and the value of that rating. Ignore movies whose director is NULL. (1 point possible)
+ 
+483 
+ 
+484 mysql> SELECT title,director,MAX(stars) FROM movie m JOIN rating r ON m.mID=r.mID WHERE director IS NOT NULL GROUP BY r.mID;
+ 
+485 +-------------------------+------------------+------------+
+ 
+486 | title                   | director         | MAX(stars) |
+ 
+487 +-------------------------+------------------+------------+
+ 
+488 | Gone with the wild      | Victor Fleming   |          4 |
+ 
+489 | The Sound Of Music      | Robert Wise      |          3 |
+ 
+490 | E.T.                    | Steven Spielberg |          3 |
+ 
+491 | Avatar                  | James Cameron    |          5 |
+ 
+492 | Raiders of the Lost Ark | Steven Spielberg |          4 |
+ 
+493 +-------------------------+------------------+------------+
+ 
+494 5 rows in set (0.00 sec)
+ 

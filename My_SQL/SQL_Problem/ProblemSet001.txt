@@ -1,0 +1,253 @@
+CREATE TABLE hotel_table(h_no VARCHAR(20),name VARCHAR(20),city VARCHAR(20));
+INSERT INTO hotel_table VALUES( 'H111' , 'Empire Hotel' , 'New York' );
+INSERT INTO hotel_table VALUES( 'H235' , 'Park Place' , 'New York' );
+INSERT INTO hotel_table VALUES( 'H432' , 'Brownstone Hotel', 'Toronto' );
+INSERT INTO hotel_table VALUES( 'H498' , 'James Plaza' , 'Toronro' );
+INSERT INTO hotel_table VALUES( 'H193' , 'Devon Hotel' , 'Boston' );
+INSERT INTO hotel_table VALUES( 'H111' , 'Clairmont Hotel' , 'Boston' );
+
+CREATE TABLE Room_table (room_no INTEGER(10), hotel_no VARCHAR(20),type VARCHAR(5), price INTEGER);
+INSERT INTO Room_table VALUES( '313' , 'H111' , 'S', '145.00' );
+INSERT INTO Room_table VALUES( '412' , 'H111' , 'N', '145.00' );
+INSERT INTO Room_table VALUES( '1267' , 'H235' , 'N', '175.00' );
+INSERT INTO Room_table VALUES( '1289' , 'H235' , 'N' ,'195.00' );
+INSERT INTO Room_table VALUES('876','H235','S','124.00');
+INSERT INTO Room_table VALUES('898','H432','S','124.00');
+INSERT INTO Room_table VALUES('345,'H432','N','160.00');
+INSERT INTO Room_table VALUES('467','H498','N','180.00');
+INSERT INTO Room_table VALUES('1001','H498','S','150.00');
+INSERT INTO Room_table VALUES('1201','H193','N','175.00');
+INSERT INTO Room_table VALUES('257','H437','N','140.00');
+INSERT INTO Room_table VALUES('223','H437','N','155.00');
+
+
+CREATE TABLE Booking_table (hotel_no VARCHAR(10), guest_no VARCHAR(20) , date_from DATE(20), date_to DATE (20), room_no INTEGER(10 ));
+
+INSERT INTO Booking_table VALUES
+
+INSERT INTO Booking_table VALUES('H111','G256','10-AUG-99','15-AUG-99','412');
+
+INSERT INTO Booking_table VALUES('H111','G367','18-AUG-99','21-AUG-99','412');
+
+INSERT INTO Booking_table VALUES('H235','G879','05-SEP-99','12-SEP-99','1267');
+
+INSERT INTO Booking_table VALUES('H498','G230','15-SEP-99','18-SEP-99','467');
+
+INSERT INTO Booking_table VALUES('H498','G256','30-NOV-99','02-DEC-99','345');
+
+INSERT INTO Booking_table VALUES('H498','G467','03-NOV-99','05-NOV-99','345');
+
+INSERT INTO Booking_table VALUES('H193','G190','15-NOV-99','19-NOV-99','1001');
+
+INSERT INTO Booking_table VALUES('H193','G367','12-SEP-99','14-SEP-99','1001');
+
+INSERT INTO Booking_table VALUES('H193','G367','01-OCT-99','06-OCT-99','1201');
+
+INSERT INTO Booking_table VALUES('H437','G190','04-OCT-99','06-OCT-99','223');
+
+INSERT INTO Booking_table VALUES('H437','G879','14-SEP-99','17-SEP-99','223');
+
+
+CREATE TABLE Guest_table(guest_no VARCHAR(10), name VARCHAR(20) , city VARCHAR(20));
+
+
+INSERT INTO Guest_table VALUES('G256','Adam Wayne','Pittsburgh');
+INSERT INTO Guest_table VALUES('G367','Tara Cummings','Baltimore');
+INSERT INTO Guest_table VALUES('G879','Vanessa Parry','Pittsburgh');
+INSERT INTO Guest_table VALUES('G230','Tom Hancock','Philadelphia');
+INSERT INTO Guest_table VALUES('G467','Robert Swift','Atlanta');
+INSERT INTO Guest_table VALUES('G190','Edward Cane','Baltimore');
+
+1)List full details of all hotels.
+
+Select * from hotel_table;
+
+H111|Empire Hotel|New York
+H235|Park Place|New York
+H432|Brownstone Hotel|Toronto
+H498|James Plaza|Toronto
+H193|Devon Hotel|Boston
+H437|Clairmont  Hotel|Boston
+
+
+
+2)List full details of all hotels in New York.
+
+Select * from hotel where city='New York';
+
+H111|Empire Hotel|New York
+H235|Park Place|New York
+
+
+
+3)List the names and cities of all guests, ordered according to their cities
+Select name,city from guest order by city;
+Robert Swift|Atlanta
+Tara Cummings|Baltimore
+Edward Cane|Baltimore
+Tom Hancock|Philadelphia
+Adam WayNE|Pittsburgh
+Vanessa Parry|Pittsburgh
+
+
+
+4)List all details for non-smoking rooms in ascending order of price.
+
+select * from room where type='N' order by price;
+
+257|H437|N|140
+412|H111|N|145
+223|H437|N|155
+345|H498|N|160
+1201|H193|N|175
+1267|H235|N|175
+467|H498|N|180
+1289|H235|N|195
+
+
+5)List the number of hotels there are.
+select count(*) from hotel;
+6
+
+
+6)List the cities in which guests live. Each city should be listed only once.
+Select DISTINCT city from guest;
+Pittsburgh
+Baltimore
+Philadelphia
+Atlanta
+
+
+
+7)List the average price of a room.
+
+Select AVG(price) from room;
+
+155.666666666667
+
+
+
+8)List hotel names, their room numbers, and the type of that room.
+
+Select h.name,r.room_no,r.type from hotel h join room r where r.hotel_no=h.hotel_no;
+
+Clairmont Hotel|223|N
+Clairmont Hotel|257|N
+Empire Hotel|313|S
+James Plaza|345|N
+Empire Hotel|412|N
+James Plaza|467|N
+Brownstone Hotel|876|S
+Brownstone Hotel|898|S
+Devon Hotel|1001|S
+Devon Hotel|1201|N
+Park Place|1267|N
+Park Place|1289|N
+
+Record Count:12
+
+9)List the hotel names, booking dates, and room numbers for all hotels in New York.
+Select h.name,b.date_from,b.date_to,b.room_no from hotel h join booking b where h.hotel_no=b.hotel_no where city='New York';
+Empire Hotel|10-AUG-99|15-AUG-99|412
+Empire Hotel|18-AUG-99|21-AUG-99|412
+Park Place|05-SEP-99|12-SEP-99|1267
+
+
+
+10)What is the number of bookings that started in the month of September?
+Select count(*) from booking where b.date_from like '%SEP%;
+
+
+10. What is the number of bookings that started in the month of September?
+ SELECT COUNT(*) AS "Booking_Count_In_Sept" FROM Booking WHERE MONTH(Date_From)=09;
+ | Booking_Count_In_Sept |
+                    4 |
+ 
+11. List the names and cities of guests who began a stay in New York in August.
+SELECT guest.name,guest.city FROM Guest JOIN Booking
+ON Guest.guest_no=Booking.guest_no JOIN Hotel
+ON booking.Hotel_No=Hotel.Hotel_No
+WHERE Hotel.City="New York" AND MONTH(booking.Date_From)=08;
+ 
+
+| name | city|
+ 
+| Adam Wayne| Pittsburgh |
+ 
+| Tara Cummings | Baltimore  |
+ 
+
+ 
+12. List the hotel names and room numbers of any hotel rooms that have not been booked.
+
+ 
+SELECT hotel.Name,room.room_no FROM Hotel JOIN Room ON Hotel.hotel_no=Room.hotel_no WHERE room.room_no NOT IN (SELECT room_no FROM Booking);
+ 
+
+ 
+| Name      | room_no |
+ 
+ | Empire Hotel     |     313 | 
+| Park Place       |    1289 |
+ | Brownstone Hotel |     876 |
+  Brownstone Hotel |     898 |
+| Clairmont Hotel  |     257 |
+
+ 
+ 13. List the hotel name and city of the hotel with the highest priced room.
+ 
+SELECT Name,City FROM Hotel JOIN Room ON Hotel.hotel_no=Room.hotel_No WHERE Room.Price = (SELECT MAX(Price) FROM Room);
+ 
+
+| Name       | City     |
+ | Park Place | New York |
+  
+
+14. List hotel names, room numbers, cities, and prices for hotels that have rooms with prices lower than the lowest priced room in a Boston hotel.
+ 
+
+ SELECT name,room_No,City,Price FROM Hotel JOIN Room ON Hotel.hotel_No=Room.hotel_no WHERE Price < (SELECT MIN(Price) FROM Room JOIN Hotel ON Hotel.hotel_no=Room.hotel_no WHERE Hotel.City="Boston");
+ 
+
+ 
+| Name             | Room_No | City    | Price |
+  
+| Brownstone Hotel |     876 | Toronto |   124 |
+| Brownstone Hotel |     898 | Toronto |   124 |
+ 
+ 15. List the average price of a room grouped by city.
+
+ 
+SELECT City,AVG(Price) FROM Room JOIN Hotel ON Room.hotel_no=Hotel.hotel_no GROUP BY City;
+
+ 
+| City     | AVG(Price) |
+  
+ | New York |        165 |
+ | Boston   |        155 |
+ | Toronto  |        147 |
+ 
+
+ SELECT AVG(Price) AS "Avg_Price" FROM Room JOIN Hotel ON Room.hotel_no=Hotel.hotel_no GROUP BY City;
+   
+   Avg_Price 
+
+ 
+       155 
+       165 
+       147 
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
